@@ -13,14 +13,14 @@ const trName = (z) => (z === 0 ? "Nötron" : (ELEMENTS[z - 1] || {}).tr || SYMBO
 
 /* ---------- bozunma modu sınıflandırması ---------- */
 const DECAY_CLASSES = [
-  { key: "stable", label: "Kararlı", color: "#f2f2f2" },
-  { key: "bminus", label: "β⁻", color: "#3d7ea6" },
-  { key: "bplus", label: "β⁺ / EC", color: "#f05454" },
-  { key: "alpha", label: "α", color: "#fcf876" },
-  { key: "sf", label: "Kendiliğinden fisyon", color: "#7bd88f" },
-  { key: "p", label: "p yayını", color: "#ffa36c" },
-  { key: "n", label: "n yayını", color: "#bc6ff1" },
-  { key: "unknown", label: "Bilinmiyor", color: "#4a5261" },
+  { key: "stable", label: "Kararlı", color: "#22334f" },
+  { key: "bminus", label: "β⁻", color: "#2e6f8e" },
+  { key: "bplus", label: "β⁺ / EC", color: "#b5432c" },
+  { key: "alpha", label: "α", color: "#c2963a" },
+  { key: "sf", label: "Kendiliğinden fisyon", color: "#3f7d6d" },
+  { key: "p", label: "p yayını", color: "#c77b3a" },
+  { key: "n", label: "n yayını", color: "#7d4bb5" },
+  { key: "unknown", label: "Bilinmiyor", color: "#c4bfae" },
 ];
 const CLASS_COLOR = Object.fromEntries(DECAY_CLASSES.map((d) => [d.key, d.color]));
 
@@ -47,7 +47,7 @@ const DECAY_DELTA = {
 };
 
 /* ---------- yarı ömür renk skalası (ısı haritası) ---------- */
-const HEAT_STOPS = ["#3d7ea6", "#64958f", "#fcf876", "#f05454"].map((h) => [
+const HEAT_STOPS = ["#2e6f8e", "#3f7d6d", "#c2963a", "#b5432c"].map((h) => [
   parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16),
 ]);
 function heatColor(t) {
@@ -59,8 +59,8 @@ function heatColor(t) {
 }
 function nuclideColor(u) {
   if (state.mode === "decay") return CLASS_COLOR[u.cls];
-  if (u.hl === -1) return "#f2f2f2";
-  if (u.hl == null) return "#4a5261";
+  if (u.hl === -1) return "#22334f";
+  if (u.hl == null) return "#c4bfae";
   return heatColor((Math.log10(u.hl) + 21) / 39); // 1e-21 .. 1e18 s
 }
 
@@ -139,7 +139,7 @@ function draw() {
       if (ok) alive++;
       if (x < -c || y < -c || x > W || y > H) continue;
       const off = state.offCls.has(u.cls);
-      ctx.globalAlpha = !ok ? 0.05 : off ? 0.08 : 1;
+      ctx.globalAlpha = !ok ? 0.08 : off ? 0.1 : 1;
       ctx.fillStyle = nuclideColor(u);
       ctx.fillRect(x, y, c - gap, c - gap);
     }
@@ -156,11 +156,11 @@ function draw() {
 
 function drawMagic(c) {
   const MAGIC = [2, 8, 20, 28, 50, 82, 126];
-  ctx.strokeStyle = "#4d566666";
+  ctx.strokeStyle = "rgba(34, 51, 79, 0.3)";
   ctx.setLineDash([4, 4]);
   ctx.lineWidth = 1;
-  ctx.fillStyle = "#6b7689";
-  ctx.font = "10px Inter, sans-serif";
+  ctx.fillStyle = "rgba(34, 51, 79, 0.5)";
+  ctx.font = '10px "IBM Plex Mono", monospace';
   for (const m of MAGIC) {
     if (m < ZMAX) {
       const y = sy(m) + c;
@@ -179,13 +179,13 @@ function drawRowHighlight(z, c) {
   if (!iso.length) return;
   const minN = Math.min(...iso.map((u) => u.n));
   const maxN = Math.max(...iso.map((u) => u.n));
-  ctx.strokeStyle = "#eeeeee";
+  ctx.strokeStyle = "#22334f";
   ctx.lineWidth = 1.5;
   ctx.strokeRect(sx(minN) - 1, sy(z) - 1, (maxN - minN + 1) * c + 2, c + 1);
 }
 
 function drawChain(c) {
-  ctx.strokeStyle = "#ffffff";
+  ctx.strokeStyle = "#b5432c";
   ctx.lineWidth = Math.max(1.2, c * 0.12);
   for (let i = 0; i < state.chain.length; i++) {
     const u = state.chain[i];
@@ -309,7 +309,7 @@ function openPanel(u) {
   state.chain = buildChain(u);
   tooltip.hidden = true;
   const color = nuclideColor(u);
-  panel.style.setProperty("--el-color", color === "#f2f2f2" ? "#8d93ab" : color);
+  panel.style.setProperty("--el-color", color);
 
   const A = u.z + u.n;
   document.getElementById("nucBadge").innerHTML = `<span><sup>${A}</sup>${SYMBOLS[u.z]}</span>`;
@@ -427,6 +427,15 @@ searchEl.addEventListener("input", () => {
     if (el) state.highlightZ = el.n;
   }
   draw();
+});
+
+/* ---------- sayfa geçişi (levha sekmeleri) ---------- */
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest("a.page-link");
+  if (!a || !a.getAttribute("href") || a.target === "_blank") return;
+  ev.preventDefault();
+  document.body.classList.add("leaving");
+  setTimeout(() => (location.href = a.href), 240);
 });
 
 /* ---------- başlangıç ---------- */

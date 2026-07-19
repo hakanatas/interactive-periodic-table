@@ -8,7 +8,20 @@
 </head>
 <body>
 <header class="topbar">
-  <h1>İnteraktif <span>Periyodik Tablo</span> <a class="nav-link" href="nuclides.html" data-i18n="nuclideMap">Nüklit Haritası →</a></h1>
+  <div class="brand">
+    <div class="kicker" data-i18n="kicker">Etkileşimli Bilim Levhaları</div>
+    <h1>İnteraktif <span>Periyodik Tablo</span></h1>
+  </div>
+  <nav class="plate-nav">
+    <a class="plate-tab active page-link" href="index.html">
+      <span class="fig" data-i18n="fig1">Levha I</span>
+      <span class="lbl" data-i18n="tabPt">Periyodik Tablo</span>
+    </a>
+    <a class="plate-tab page-link" href="nuclides.html">
+      <span class="fig" data-i18n="fig2">Levha II</span>
+      <span class="lbl" data-i18n="tabNuc">Nüklit Haritası</span>
+    </a>
+  </nav>
   <div class="controls">
     <input id="search" type="text" data-i18n-ph="searchPh" placeholder="Ara: sembol, isim, numara…" autocomplete="off">
     <div class="modes" id="modes">
@@ -33,6 +46,7 @@
 </header>
 
 <div id="container">
+  <div class="plate-caption" data-i18n="caption1">Levha I — Elementler · N = 118</div>
   <div class="center-controls">
     <div class="temp-row">
       <div class="temp-readout">
@@ -85,7 +99,7 @@
     <figcaption data-i18n="spectrum">Emisyon spektrumu</figcaption>
   </figure>
   <div class="wiki-links">
-    <a id="isoLink" data-i18n="isotopes">🧭 İzotoplar</a>
+    <a id="isoLink" class="page-link" data-i18n="isotopes">🧭 İzotoplar</a>
     <a id="wikiTr" target="_blank" rel="noopener">Vikipedi (TR) ↗</a>
     <a id="wikiEn" target="_blank" rel="noopener">Wikipedia (EN) ↗</a>
   </div>

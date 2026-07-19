@@ -46,7 +46,11 @@ const L = {
     quizCorrect: "Doğru! 🎉", quizWrong: "Yanlış — doğru cevap: {a}",
     quizScore: "Quiz bitti! Skorun: {s}/10", quizAgain: "Tekrar oyna",
     quizProgress: "Soru {i}/10 · Skor {s}",
-    isotopes: "🧭 İzotoplar", nuclideMap: "Nüklit Haritası →",
+    isotopes: "🧭 İzotoplar",
+    kicker: "Etkileşimli Bilim Levhaları",
+    fig1: "Levha I", fig2: "Levha II",
+    tabPt: "Periyodik Tablo", tabNuc: "Nüklit Haritası",
+    caption1: "Levha I — Elementler · N = 118",
   },
   en: {
     searchPh: "Search: symbol, name, number…",
@@ -72,7 +76,11 @@ const L = {
     quizCorrect: "Correct! 🎉", quizWrong: "Wrong — the answer was {a}",
     quizScore: "Quiz finished! Score: {s}/10", quizAgain: "Play again",
     quizProgress: "Question {i}/10 · Score {s}",
-    isotopes: "🧭 Isotopes", nuclideMap: "Nuclide Map →",
+    isotopes: "🧭 Isotopes",
+    kicker: "Interactive Science Plates",
+    fig1: "Plate I", fig2: "Plate II",
+    tabPt: "Periodic Table", tabNuc: "Nuclide Map",
+    caption1: "Plate I — Elements · N = 118",
   },
 };
 let lang = "tr";
@@ -87,26 +95,26 @@ document.getElementById("hexClipPath").setAttribute("d", HEX_D);
 
 /* ---------- kategoriler ---------- */
 const CATEGORY = {
-  "diatomic nonmetal":     { color: "#3d7ea6", tr: "Diatomik ametal", en: "Diatomic nonmetal" },
-  "polyatomic nonmetal":   { color: "#8d93ab", tr: "Poliatomik ametal", en: "Polyatomic nonmetal" },
-  "noble gas":             { color: "#bc6ff1", tr: "Soy gaz", en: "Noble gas" },
-  "alkali metal":          { color: "#f05454", tr: "Alkali metal", en: "Alkali metal" },
-  "alkaline earth metal":  { color: "#ffa36c", tr: "Toprak alkali metal", en: "Alkaline earth metal" },
-  "metalloid":             { color: "#64958f", tr: "Yarı metal", en: "Metalloid" },
-  "post-transition metal": { color: "#c0e218", tr: "Geçiş sonrası metal", en: "Post-transition metal" },
-  "transition metal":      { color: "#fcf876", tr: "Geçiş metali", en: "Transition metal" },
-  "lanthanide":            { color: "#949cdf", tr: "Lantanit", en: "Lanthanide" },
-  "actinide":              { color: "#16697a", tr: "Aktinit", en: "Actinide" },
-  "unknown":               { color: "#5c6575", tr: "Bilinmiyor", en: "Unknown" },
+  "diatomic nonmetal":     { color: "#2e6f8e", tr: "Diatomik ametal", en: "Diatomic nonmetal" },
+  "polyatomic nonmetal":   { color: "#5e6b85", tr: "Poliatomik ametal", en: "Polyatomic nonmetal" },
+  "noble gas":             { color: "#7d4bb5", tr: "Soy gaz", en: "Noble gas" },
+  "alkali metal":          { color: "#b5432c", tr: "Alkali metal", en: "Alkali metal" },
+  "alkaline earth metal":  { color: "#c77b3a", tr: "Toprak alkali metal", en: "Alkaline earth metal" },
+  "metalloid":             { color: "#3f7d6d", tr: "Yarı metal", en: "Metalloid" },
+  "post-transition metal": { color: "#6d8f2f", tr: "Geçiş sonrası metal", en: "Post-transition metal" },
+  "transition metal":      { color: "#a8862d", tr: "Geçiş metali", en: "Transition metal" },
+  "lanthanide":            { color: "#4f5da8", tr: "Lantanit", en: "Lanthanide" },
+  "actinide":              { color: "#226577", tr: "Aktinit", en: "Actinide" },
+  "unknown":               { color: "#8b8e96", tr: "Bilinmiyor", en: "Unknown" },
 };
 const catKey = (cat) => (CATEGORY[cat] ? cat : "unknown");
 const catLabel = (cat) => CATEGORY[catKey(cat)][lang];
 
-const PHASE_COLOR = { Solid: "#64958f", Liquid: "#3d7ea6", Gas: "#bc6ff1" };
+const PHASE_COLOR = { Solid: "#3f7d6d", Liquid: "#2e6f8e", Gas: "#7d4bb5" };
 const PHASE_KEY = { Solid: "solid", Liquid: "liquid", Gas: "gas" };
 
 /* ---------- ısı haritası renk skalası ---------- */
-const HEAT_STOPS = ["#3d7ea6", "#64958f", "#fcf876", "#f05454"].map((h) => [
+const HEAT_STOPS = ["#2e6f8e", "#3f7d6d", "#c2963a", "#b5432c"].map((h) => [
   parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16),
 ]);
 function heatColor(t) {
@@ -135,10 +143,10 @@ for (const m of Object.values(MODES)) {
 }
 function modeColor(el, mode) {
   if (mode === "cat") return CATEGORY[catKey(el.cat)].color;
-  if (mode === "phase") return PHASE_COLOR[phaseAt(el, state.temp)] || "#5c6575";
+  if (mode === "phase") return PHASE_COLOR[phaseAt(el, state.temp)] || "#8b8e96";
   const m = MODES[mode];
   let v = m.get(el);
-  if (v == null) return "#454c59";
+  if (v == null) return "#b9b4a4";
   if (m.log) v = Math.log10(v);
   return heatColor(map(v, m.min, m.max, 0, 1));
 }
@@ -349,7 +357,7 @@ function applyTemperature(temp) {
     const p = phaseAt(tile.data, temp);
     counts[p]++;
     tile.setPhase(p);
-    if (state.mode === "phase") tile.setColor(PHASE_COLOR[p] || "#5c6575");
+    if (state.mode === "phase") tile.setColor(PHASE_COLOR[p] || "#8b8e96");
   }
   phaseCounts.innerHTML =
     `<span>${T("solid")} <b>${counts.Solid}</b></span>` +
@@ -909,6 +917,15 @@ function initFromURL() {
   urlReady = true;
   syncURL();
 }
+
+/* ---------- sayfa geçişi (levha sekmeleri) ---------- */
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest("a.page-link");
+  if (!a || !a.getAttribute("href") || a.target === "_blank") return;
+  ev.preventDefault();
+  document.body.classList.add("leaving");
+  setTimeout(() => (location.href = a.href), 240);
+});
 
 /* ---------- başlangıç ---------- */
 applyTemperature(293);

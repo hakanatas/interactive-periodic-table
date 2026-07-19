@@ -9,7 +9,20 @@
 </head>
 <body>
 <header class="topbar">
-  <h1>Nüklit <span>Haritası</span> <a class="back-link" href="index.html">← Periyodik Tablo</a></h1>
+  <div class="brand">
+    <div class="kicker">Etkileşimli Bilim Levhaları</div>
+    <h1>Nüklit <span>Haritası</span></h1>
+  </div>
+  <nav class="plate-nav">
+    <a class="plate-tab page-link" href="index.html">
+      <span class="fig">Levha I</span>
+      <span class="lbl">Periyodik Tablo</span>
+    </a>
+    <a class="plate-tab active page-link" href="nuclides.html">
+      <span class="fig">Levha II</span>
+      <span class="lbl">Nüklit Haritası</span>
+    </a>
+  </nav>
   <div class="controls">
     <input id="search" type="text" placeholder="Element ara: Fe, U, 26…" autocomplete="off">
     <div class="modes" id="modes">
@@ -32,6 +45,7 @@
     <div class="axis-x">N — nötron sayısı →</div>
     <div class="axis-y">Z — proton sayısı →</div>
     <div class="zoom-hint">kaydır: yakınlaştır · sürükle: gezin · çift tık: sıfırla</div>
+    <div class="chart-caption">Levha II — Nüklitler · N = 3386 · IAEA</div>
   </div>
   <div class="legend nuc-legend" id="legend"></div>
 </div>
@@ -53,7 +67,7 @@
   <h3 class="panel-sub">Bozunma zinciri</h3>
   <ol class="chain" id="chainList"></ol>
   <div class="wiki-links">
-    <a id="ptLink">Periyodik tabloda gör →</a>
+    <a id="ptLink" class="page-link">Periyodik tabloda gör →</a>
   </div>
 </aside>
 
