@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İnteraktif Periyodik Tablo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>İnteraktif <span>Periyodik Tablo</span></h1>
+  <div class="controls">
+    <input id="search" type="text" data-i18n-ph="searchPh" placeholder="Ara: sembol, isim, numara…" autocomplete="off">
+    <div class="modes" id="modes">
+      <button data-mode="cat" class="active" data-i18n="modeCat">Kategori</button>
+      <button data-mode="phase" data-i18n="modePhase">Faz</button>
+    </div>
+    <select id="heatSelect">
+      <option value="" data-i18n="heatPh">Isı haritası…</option>
+      <option value="en" data-i18n="modeEn">Elektronegatiflik</option>
+      <option value="density" data-i18n="modeDensity">Yoğunluk</option>
+      <option value="ion" data-i18n="modeIon">İyonlaşma enerjisi</option>
+      <option value="mass" data-i18n="modeMass">Atom kütlesi</option>
+      <option value="radius" data-i18n="modeRadius">Atom yarıçapı</option>
+      <option value="year" data-i18n="modeYear">Keşif yılı</option>
+      <option value="melt" data-i18n="modeMelt">Erime noktası</option>
+      <option value="boil" data-i18n="modeBoil">Kaynama noktası</option>
+    </select>
+    <button id="compareBtn" class="tool-btn" data-i18n="compare">⚖ Karşılaştır</button>
+    <button id="quizBtn" class="tool-btn" data-i18n="quiz">🎯 Quiz</button>
+    <button id="langBtn" class="tool-btn">EN</button>
+  </div>
+</header>
+
+<div id="container">
+  <div class="center-controls">
+    <div class="temp-row">
+      <div class="temp-readout">
+        <span id="tempK">293 K</span>
+        <span id="tempC">20 °C</span>
+      </div>
+      <input id="tempSlider" type="range" min="0" max="6000" step="1" value="293">
+    </div>
+    <div class="temp-presets">
+      <button data-t="0">0 K</button>
+      <button data-t="77" data-i18n="pN2">Sıvı azot</button>
+      <button data-t="293" data-i18n="pRoom">Oda</button>
+      <button data-t="1811" data-i18n="pIron">Demir erir</button>
+      <button data-t="5800" data-i18n="pSun">Güneş yüzeyi</button>
+      <span class="phase-counts" id="phaseCounts"></span>
+    </div>
+    <div class="year-row">
+      <span class="year-label" data-i18n="yearLabel">Keşif yılı</span>
+      <input id="yearSlider" type="range" min="1650" max="2020" step="1" value="2020">
+      <span id="yearReadout" data-i18n="yearAll">Tümü</span>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+</div>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<div id="panelBackdrop" class="panel-backdrop" hidden></div>
+<aside id="panel" class="panel" hidden>
+  <button class="panel-close" id="panelClose">×</button>
+  <div class="panel-head">
+    <svg id="panelHex" viewBox="0 0 120 120"></svg>
+    <div class="panel-title">
+      <h2 id="pName"></h2>
+      <p id="pEn"></p>
+      <p id="pCat"></p>
+    </div>
+  </div>
+  <div class="panel-phase" id="pPhase"></div>
+  <div class="panel-intro">
+    <img id="pImg" alt="" loading="lazy">
+    <p id="pBlurb"></p>
+  </div>
+  <svg id="bohr" viewBox="0 0 320 320"></svg>
+  <h3 class="panel-sub" data-i18n="orbitals">Orbital dolulukları</h3>
+  <div id="orbitals" class="orbitals"></div>
+  <dl class="props" id="pProps"></dl>
+  <figure id="specFig" class="spec-fig" hidden>
+    <img id="pSpec" alt="" loading="lazy">
+    <figcaption data-i18n="spectrum">Emisyon spektrumu</figcaption>
+  </figure>
+  <div class="wiki-links">
+    <a id="wikiTr" target="_blank" rel="noopener">Vikipedi (TR) ↗</a>
+    <a id="wikiEn" target="_blank" rel="noopener">Wikipedia (EN) ↗</a>
+  </div>
+</aside>
+
+<div id="compareCard" class="compare-card" hidden>
+  <button class="panel-close" id="compareClose">×</button>
+  <div class="compare-hint" id="compareHint"></div>
+  <div class="compare-body" id="compareBody"></div>
+</div>
+
+<div id="quizCard" class="quiz-card" hidden>
+  <button class="panel-close" id="quizClose">×</button>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-question" id="quizQuestion"></div>
+  <div class="quiz-answers" id="quizAnswers"></div>
+  <div class="quiz-feedback" id="quizFeedback"></div>
+</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <clipPath id="hexClip"><path id="hexClipPath"></path></clipPath>
+  </defs>
+</svg>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
