@@ -172,20 +172,24 @@ const state = {
   quiz: null,        // aktif quiz durumu
 };
 
-/* ---------- karo yerleşimi ---------- */
+/* ---------- karo yerleşimi ----------
+   Masaüstü: klasik 18 sütun × 10 satır.
+   Mobil (dikey): tablo 90° çevrilir — periyotlar sütun, gruplar satır olur,
+   böylece ekrana kaydırmasız sığar. */
 const container = document.getElementById("container");
+const mqMobile = window.matchMedia("(max-width: 760px)");
+const GRID_D = { w: 95, h: 47.5 };  // masaüstü ızgara birimleri
+const GRID_T = { w: 56, h: 84 };    // çevrilmiş (mobil) ızgara birimleri
 const xvw = (el) => el.x * 4.8 + ((el.y + 1) % 2) * 2.5 - 2;
 const yvw = (el) => el.y * 4.5 - 4;
-const pctX = (v) => (v / 95) * 100 + "%";
-const pctY = (v) => (v / 47.5) * 100 + "%";
+const xvwT = (el) => el.y * 4.8 + ((el.x + 1) % 2) * 2.5 - 2;
+const yvwT = (el) => el.x * 4.5 - 4;
 
 class Tile {
   constructor(el) {
     this.data = el;
     this.root = document.createElement("div");
     this.root.className = "tile";
-    this.root.style.left = pctX(xvw(el));
-    this.root.style.top = pctY(yvw(el));
 
     this.svg = svgEl("svg", { viewBox: "0 0 100 100", class: "svg" });
     this.root.appendChild(this.svg);
@@ -295,25 +299,44 @@ for (const el of ELEMENTS) {
   if (el.period) byPeriod.set(el.period, [...(byPeriod.get(el.period) || []), el.n]);
 }
 
-function addLabel(text, x, y) {
-  const d = document.createElement("div");
-  d.className = "grid-label";
-  d.textContent = text;
-  d.style.left = pctX(x);
-  d.style.top = pctY(y);
-  container.appendChild(d);
+const labels = [];
+function addLabel(text, d, t) {
+  const node = document.createElement("div");
+  node.className = "grid-label";
+  node.textContent = text;
+  container.appendChild(node);
+  labels.push({ node, d, t });
 }
 for (const [g, ns] of byGroup) {
   const top = ns.map((n) => tileByN.get(n).data).reduce((a, b) => (a.y < b.y ? a : b));
   if (top.y > 7) continue;
-  addLabel(g, xvw(top) + 2.5, yvw(top) - 1.3);
+  addLabel(g, [xvw(top) + 2.5, yvw(top) - 1.3], [xvwT(top) - 1.4, yvwT(top) + 2.5]);
 }
 for (const [p, ns] of byPeriod) {
   const left = ns.map((n) => tileByN.get(n).data).filter((e) => e.y <= 7)
     .reduce((a, b) => (a.x < b.x ? a : b), { x: 99 });
   if (!left.n) continue;
-  addLabel(p, xvw(left) - 1.3, yvw(left) + 2.5);
+  addLabel(p, [xvw(left) - 1.3, yvw(left) + 2.5], [xvwT(left) + 2.5, yvwT(left) - 1.3]);
 }
+
+/* yerleşimi uygula: masaüstünde klasik, mobilde çevrilmiş */
+function layoutTiles() {
+  const mobile = mqMobile.matches;
+  container.classList.toggle("transposed", mobile);
+  const g = mobile ? GRID_T : GRID_D;
+  for (const tile of tiles) {
+    const el = tile.data;
+    tile.root.style.left = ((mobile ? xvwT(el) : xvw(el)) / g.w) * 100 + "%";
+    tile.root.style.top = ((mobile ? yvwT(el) : yvw(el)) / g.h) * 100 + "%";
+  }
+  for (const lb of labels) {
+    const [x, y] = mobile ? lb.t : lb.d;
+    lb.node.style.left = (x / g.w) * 100 + "%";
+    lb.node.style.top = (y / g.h) * 100 + "%";
+  }
+}
+layoutTiles();
+mqMobile.addEventListener("change", layoutTiles);
 
 function highlightGroupPeriod(el, on) {
   const ns = new Set([...(byGroup.get(el.group) || []), ...(byPeriod.get(el.period) || [])]);

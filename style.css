@@ -638,12 +638,19 @@ input[type="range"]::-moz-range-thumb {
   .legend-chip { font-size: 0.66rem; padding: 0.18rem 0.5rem; border-radius: 1rem; }
   .legend-chip .dot { width: 0.55rem; height: 0.55rem; }
 
-  /* tablo yatay kaydırılır levha olur */
-  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  #container { width: 237.5vw; height: 118.75vw; }
-  .element-name { font-size: 3.4vw; }
-  .element-number { font-size: 1.5vw; }
-  .element-mass { display: none; }
-  .grid-label { font-size: 1.4vw; }
+  /* tablo 90° çevrilir ve ekrana sığar (periyotlar sütun, gruplar satır) */
+  .table-scroll { margin: 0 3vw; }
   .plate-caption { margin-left: 3vw; font-size: 0.52rem; }
 }
+
+/* ---------- çevrilmiş (dikey/mobil) tablo düzeni ---------- */
+#container.transposed {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 56 / 84;
+}
+.transposed .tile { width: 8.9286%; height: 5.9524%; }  /* 5/56 ve 5/84 birim */
+.transposed .element-name { font-size: 3.1vw; top: 46%; }
+.transposed .element-number { font-size: 1.5vw; top: 14%; }
+.transposed .element-mass { display: none; }
+.transposed .grid-label { font-size: 1.7vw; }
