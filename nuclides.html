@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nüklit Haritası — İzotoplar</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="nuclides.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>Nüklit <span>Haritası</span> <a class="back-link" href="index.html">← Periyodik Tablo</a></h1>
+  <div class="controls">
+    <input id="search" type="text" placeholder="Element ara: Fe, U, 26…" autocomplete="off">
+    <div class="modes" id="modes">
+      <button data-mode="decay" class="active">Bozunma modu</button>
+      <button data-mode="hl">Yarı ömür</button>
+    </div>
+    <button id="magicBtn" class="tool-btn active">Sihirli sayılar</button>
+  </div>
+</header>
+
+<div class="nuc-wrap">
+  <div class="time-bar">
+    <span class="time-label">⏱ Zaman</span>
+    <input id="timeSlider" type="range" min="-210" max="180" step="1" value="-210">
+    <span id="timeReadout">Başlangıç — tüm çekirdekler</span>
+    <span id="surviveCount"></span>
+  </div>
+  <div class="chart-holder" id="chartHolder">
+    <canvas id="chart"></canvas>
+    <div class="axis-x">N — nötron sayısı →</div>
+    <div class="axis-y">Z — proton sayısı →</div>
+    <div class="zoom-hint">kaydır: yakınlaştır · sürükle: gezin · çift tık: sıfırla</div>
+  </div>
+  <div class="legend nuc-legend" id="legend"></div>
+</div>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<div id="panelBackdrop" class="panel-backdrop" hidden></div>
+<aside id="panel" class="panel" hidden>
+  <button class="panel-close" id="panelClose">×</button>
+  <div class="panel-head">
+    <div class="nuc-badge" id="nucBadge"></div>
+    <div class="panel-title">
+      <h2 id="pName"></h2>
+      <p id="pSub"></p>
+      <p id="pMode"></p>
+    </div>
+  </div>
+  <dl class="props" id="pProps"></dl>
+  <h3 class="panel-sub">Bozunma zinciri</h3>
+  <ol class="chain" id="chainList"></ol>
+  <div class="wiki-links">
+    <a id="ptLink">Periyodik tabloda gör →</a>
+  </div>
+</aside>
+
+<script src="data.js"></script>
+<script src="nuclides-data.js"></script>
+<script src="nuclides.js"></script>
+</body>
+</html>

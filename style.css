@@ -27,6 +27,15 @@ body {
   letter-spacing: 0.02em;
 }
 .topbar h1 span { color: #f05454; }
+.topbar .nav-link {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: #8d93ab;
+  text-decoration: none;
+  margin-left: 0.8rem;
+  vertical-align: middle;
+}
+.topbar .nav-link:hover { color: #f05454; }
 
 .controls { display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap; }
 

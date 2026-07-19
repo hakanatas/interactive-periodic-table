@@ -36,6 +36,20 @@ python3 -m http.server 8317
   görünümün aynısını linkle paylaş.
 - **Arama** (sembol, Türkçe/İngilizce isim, numara) ve tıklanabilir **lejant filtresi**.
 
+## Nüklit Haritası (`nuclides.html`)
+
+Periyodik tablonun kardeş sayfası: 3386 nüklitlik interaktif **Segrè diyagramı**.
+
+- Bozunma moduna göre renkli harita (β⁻, β⁺/EC, α, SF, p, n) veya yarı ömür ısı haritası.
+- **Zaman kaydırıcısı** (zeptosaniye → evrenin yaşı): sürükledikçe kısa ömürlü çekirdekler
+  kaybolur, kararlılık vadisi ortaya çıkar.
+- Nüklite tıklayınca **bozunma zinciri** hem listede hem haritada çizilir
+  (ör. ²³⁸U'dan ²⁰⁶Pb'ye 15 adım).
+- Sihirli sayı çizgileri (2, 8, 20, 28, 50, 82, 126), yakınlaştırma/gezinme, element arama.
+- Periyodik tablodaki element panelinden "🧭 İzotoplar" ile geçiş yapılır.
+- Veri: [IAEA Livechart API](https://nds.iaea.org/relnsd/vcharthtml/VChartHTML.html)
+  (taban durumları, yarı ömürler, bozunma modları, keşif yılları).
+
 ## Dosyalar
 
 - `index.html` — sayfa iskeleti

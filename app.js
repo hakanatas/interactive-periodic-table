@@ -46,6 +46,7 @@ const L = {
     quizCorrect: "Doğru! 🎉", quizWrong: "Yanlış — doğru cevap: {a}",
     quizScore: "Quiz bitti! Skorun: {s}/10", quizAgain: "Tekrar oyna",
     quizProgress: "Soru {i}/10 · Skor {s}",
+    isotopes: "🧭 İzotoplar", nuclideMap: "Nüklit Haritası →",
   },
   en: {
     searchPh: "Search: symbol, name, number…",
@@ -71,6 +72,7 @@ const L = {
     quizCorrect: "Correct! 🎉", quizWrong: "Wrong — the answer was {a}",
     quizScore: "Quiz finished! Score: {s}/10", quizAgain: "Play again",
     quizProgress: "Question {i}/10 · Score {s}",
+    isotopes: "🧭 Isotopes", nuclideMap: "Nuclide Map →",
   },
 };
 let lang = "tr";
@@ -559,6 +561,7 @@ function openPanel(el) {
     spec.onerror = () => (specFig.hidden = true);
   }
 
+  document.getElementById("isoLink").href = "nuclides.html#el=" + el.sym;
   document.getElementById("wikiTr").href =
     "https://tr.wikipedia.org/wiki/" + encodeURIComponent(el.tr);
   document.getElementById("wikiEn").href =
