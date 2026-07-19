@@ -149,12 +149,17 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
 .tool-btn.active { background: var(--accent); border-color: var(--accent); color: #fdfbf5; }
 
 /* ---------- tablo levhası ---------- */
+.table-wrap {
+  width: 95vw;
+  margin: 0.8rem auto 2rem;
+  position: relative;
+}
+.table-scroll { border-radius: 6px; }
 #container {
   width: 95vw;
   height: 47.5vw;
   background: var(--paper-2);
   border: 1px solid var(--line-strong);
-  margin: 0.8rem auto 2.4rem;
   position: relative;
   border-radius: 6px;
   box-shadow: var(--shadow);
@@ -172,9 +177,7 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
 #container::after { bottom: 7px; right: 7px; border-width: 0 2px 2px 0; }
 
 .plate-caption {
-  position: absolute;
-  bottom: -1.5rem;
-  left: 0.2rem;
+  margin: 0.55rem 0 0 0.2rem;
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.6rem;
   letter-spacing: 0.22em;
@@ -594,21 +597,53 @@ input[type="range"]::-moz-range-thumb {
 
 /* ---------- küçük ekranlar ---------- */
 @media (max-width: 760px) {
-  body { overflow-x: auto; }
-  #container { width: 190vw; height: 95vw; }
-  .element-name { font-size: 2.7vw; }
-  .element-number { font-size: 1.2vw; }
-  .element-mass { font-size: 1vw; }
-  .grid-label { font-size: 1.25vw; }
-  #tempK { font-size: 2.9vw; }
-  #tempC { font-size: 1.6vw; }
-  .temp-readout { min-width: 12.4vw; }
-  input[type="range"] { height: 0.9vw; }
-  input[type="range"]::-webkit-slider-thumb { width: 2.2vw; height: 2.2vw; }
-  .temp-presets button { font-size: 1.3vw; padding: 0.5vw 1.2vw; }
-  .phase-counts { font-size: 1.35vw; }
-  .year-label { font-size: 1.3vw; }
-  #yearReadout { font-size: 1.7vw; min-width: 13vw; }
-  .legend-chip { font-size: 1.25vw; padding: 0.4vw 1vw; }
-  .legend-chip .dot { width: 1.1vw; height: 1.1vw; }
+  .topbar { padding: 0.8rem 3vw 0.4rem; gap: 0.7rem; }
+  .brand .kicker { font-size: 0.52rem; letter-spacing: 0.2em; }
+  .topbar h1 { font-size: 1.12rem; }
+  .plate-nav { width: 100%; }
+  .plate-tab { flex: 1; padding: 0.4rem 0.7rem; }
+  .plate-tab .lbl { font-size: 0.78rem; }
+  .controls { width: 100%; }
+  #search { flex: 1 1 100%; width: auto; font-size: 0.8rem; }
+  .modes button { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+  #heatSelect, .tool-btn { font-size: 0.7rem; padding: 0.35rem 0.5rem; }
+
+  /* kontroller tablonun üstünde ayrı bir kart olur */
+  .table-wrap { width: 100%; margin: 0.5rem 0 1.6rem; }
+  .center-controls {
+    position: static;
+    width: auto;
+    margin: 0 3vw 0.7rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.7rem 0.8rem;
+    gap: 0.5rem;
+    box-shadow: 2px 2px 0 rgba(34, 51, 79, 0.1);
+  }
+  .temp-row { gap: 0.7rem; }
+  .temp-readout { min-width: 4.6rem; }
+  #tempK { font-size: 1.15rem; }
+  #tempC { font-size: 0.72rem; }
+  input[type="range"] { height: 6px; border-radius: 6px; }
+  input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
+  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; }
+  .temp-presets { gap: 0.3rem; }
+  .temp-presets button { font-size: 0.66rem; padding: 0.22rem 0.55rem; border-radius: 1rem; }
+  .phase-counts { font-size: 0.68rem; gap: 0.7rem; margin-left: 0.3rem; }
+  .year-row { gap: 0.6rem; }
+  .year-label { font-size: 0.56rem; }
+  #yearReadout { font-size: 0.8rem; min-width: 6.6rem; }
+  .legend { gap: 0.28rem; margin-top: 0.2rem; }
+  .legend-chip { font-size: 0.66rem; padding: 0.18rem 0.5rem; border-radius: 1rem; }
+  .legend-chip .dot { width: 0.55rem; height: 0.55rem; }
+
+  /* tablo yatay kaydırılır levha olur */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #container { width: 237.5vw; height: 118.75vw; }
+  .element-name { font-size: 3.4vw; }
+  .element-number { font-size: 1.5vw; }
+  .element-mass { display: none; }
+  .grid-label { font-size: 1.4vw; }
+  .plate-caption { margin-left: 3vw; font-size: 0.52rem; }
 }

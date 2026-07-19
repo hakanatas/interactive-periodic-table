@@ -105,11 +105,12 @@ const view = { k: 1, x: 0, y: 0 }; // hücre biriminde ofset
 
 function resize() {
   DPR = window.devicePixelRatio || 1;
-  W = holder.clientWidth;
+  W = Math.max(holder.clientWidth - 2, 700); // dar ekranda yatay kaydırma
   CELL = W / NMAX;
   H = Math.ceil(CELL * ZMAX);
   canvas.width = Math.round(W * DPR);
   canvas.height = Math.round(H * DPR);
+  canvas.style.width = W + "px";
   canvas.style.height = H + "px";
   draw();
 }

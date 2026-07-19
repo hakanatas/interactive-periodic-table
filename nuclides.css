@@ -58,7 +58,8 @@
 .chart-holder::before { top: 7px; left: 7px; border-width: 2px 0 0 2px; }
 .chart-holder::after { bottom: 7px; right: 7px; border-width: 0 2px 2px 0; }
 
-#chart { display: block; width: 100%; cursor: crosshair; }
+.chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+#chart { display: block; cursor: crosshair; }
 #chart.dragging { cursor: grabbing; }
 
 .axis-x, .axis-y, .zoom-hint, .chart-caption {
@@ -111,3 +112,17 @@
 .chain li .arrow { color: var(--el-color, var(--accent)); font-weight: 700; }
 .chain li .hl { color: var(--muted); font-size: 0.72rem; }
 .chain li.stable-end b { color: #3f7d6d; }
+
+/* ---------- küçük ekranlar ---------- */
+@media (max-width: 760px) {
+  .nuc-wrap { width: 100%; padding: 0 3vw; margin-top: 0.5rem; }
+  .time-bar { flex-wrap: wrap; gap: 0.5rem 0.8rem; padding: 0.55rem 0.8rem; }
+  #timeSlider { flex: 1 1 100%; order: 3; }
+  #timeReadout { min-width: 0; font-size: 0.78rem; }
+  #surviveCount { font-size: 0.64rem; margin-left: auto; }
+  .axis-x { font-size: 0.54rem; right: 0.8rem; }
+  .axis-y { display: none; }
+  .zoom-hint { display: none; }
+  .chart-caption { font-size: 0.5rem; left: 0.8rem; }
+  .nuc-legend .legend-chip { font-size: 0.64rem; }
+}
