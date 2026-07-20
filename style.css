@@ -601,9 +601,9 @@ input[type="range"]::-moz-range-thumb {
   .brand .kicker { font-size: 0.52rem; letter-spacing: 0.2em; }
   .topbar h1 { font-size: 1.12rem; }
   .plate-nav { width: 100%; }
-  .plate-tab { flex: 1 1 45%; padding: 0.4rem 0.45rem; }
-  .plate-tab .lbl { font-size: 0.66rem; white-space: nowrap; }
-  .plate-tab .fig { font-size: 0.46rem; }
+  .plate-tab { flex: 1 1 30%; padding: 0.4rem 0.45rem; }
+  .plate-tab .lbl { font-size: 0.62rem; white-space: nowrap; }
+  .plate-tab .fig { font-size: 0.44rem; }
   .controls { width: 100%; }
   #search { flex: 1 1 100%; width: auto; font-size: 0.8rem; }
   .modes button { font-size: 0.7rem; padding: 0.3rem 0.5rem; }

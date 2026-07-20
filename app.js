@@ -48,8 +48,8 @@ const L = {
     quizProgress: "Soru {i}/10 · Skor {s}",
     isotopes: "🧭 İzotoplar",
     kicker: "Etkileşimli Bilim Levhaları",
-    fig1: "Levha I", fig2: "Levha II", fig3: "Levha III", fig4: "Levha IV",
-    tabPt: "Periyodik Tablo", tabNuc: "Nüklit Haritası", tabFx: "Fourier Makinesi", tabOrb: "Yörünge Kurucu",
+    fig1: "Levha I", fig2: "Levha II", fig3: "Levha III", fig4: "Levha IV", fig5: "Levha V",
+    tabPt: "Periyodik Tablo", tabNuc: "Nüklit Haritası", tabFx: "Fourier Makinesi", tabOrb: "Yörünge Kurucu", tabGalton: "Galton Tahtası",
     caption1: "Levha I — Elementler · N = 118",
   },
   en: {
@@ -78,8 +78,8 @@ const L = {
     quizProgress: "Question {i}/10 · Score {s}",
     isotopes: "🧭 Isotopes",
     kicker: "Interactive Science Plates",
-    fig1: "Plate I", fig2: "Plate II", fig3: "Plate III", fig4: "Plate IV",
-    tabPt: "Periodic Table", tabNuc: "Nuclide Map", tabFx: "Fourier Machine", tabOrb: "Orbit Builder",
+    fig1: "Plate I", fig2: "Plate II", fig3: "Plate III", fig4: "Plate IV", fig5: "Plate V",
+    tabPt: "Periodic Table", tabNuc: "Nuclide Map", tabFx: "Fourier Machine", tabOrb: "Orbit Builder", tabGalton: "Galton Board",
     caption1: "Plate I — Elements · N = 118",
   },
 };
