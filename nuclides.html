@@ -11,7 +11,8 @@
 <header class="topbar">
   <div class="brand">
     <div class="kicker">Etkileşimli Bilim Levhaları</div>
-    <h1>Nüklit <span>Haritası</span></h1>
+    <h1>Nüklit <span>Haritası</span>
+      <button class="info-btn" id="infoBtn" title="Bu levha nedir?">i</button></h1>
   </div>
   <nav class="plate-nav">
     <a class="plate-tab page-link" href="index.html">
@@ -86,6 +87,33 @@
     <a id="ptLink" class="page-link">Periyodik tabloda gör →</a>
   </div>
 </aside>
+
+<div class="modal-backdrop" id="infoModal" hidden>
+  <div class="modal">
+    <button class="modal-close" id="infoClose" aria-label="Kapat">×</button>
+    <div class="modal-body">
+      <div class="modal-kicker">Levha II · Rehber</div>
+      <h2>Nüklit <span>Haritası</span></h2>
+      <p>Periyodik tablo elementleri gösterir; bu harita ise onların <b>izotoplarını</b> — aynı elementin
+        farklı nötron sayılı çekirdeklerini — gösterir. 3386 çekirdek, yatay eksende nötron (N), dikey
+        eksende proton (Z) sayısına göre dizilir. Buna Segrè diyagramı denir.</p>
+      <h3>Neler yapabilirsin</h3>
+      <ul>
+        <li>Renkler <b>bozunma tipini</b> gösterir: β⁻ (mavi), β⁺/EC (kırmızı), α (sarı), fisyon (yeşil)…
+          Kararlı çekirdekler koyu laciverttir ve "kararlılık vadisi"ni çizer.</li>
+        <li><b>Zaman kaydırıcısı</b>: zeptosaniyeden evrenin yaşına kadar; sürükledikçe kısa ömürlü çekirdekler bozunup kaybolur.</li>
+        <li>Bir çekirdeğe tıkla: yarı ömrü, bozunma modu ve tüm <b>bozunma zincirini</b> gör
+          (ör. Uranyum-238'in kurşuna kadar 14 adımı).</li>
+        <li>"Sihirli sayılar" çizgileri özellikle kararlı çekirdekleri işaretler; yakınlaştır ve gezin.</li>
+      </ul>
+      <h3>Bilimsel arka plan</h3>
+      <p>Çekirdekteki proton/nötron dengesi kararlılığı belirler. Dengesiz çekirdekler radyoaktif
+        bozunmayla daha kararlı hâle geçer. Yarı ömür, bir çekirdek topluluğunun yarısının bozunması için
+        geçen süredir — milyarlarca yıldan saniyenin milyarda birine kadar değişir.</p>
+      <div class="modal-tip">💡 İpucu: Zaman kaydırıcısını "1 yıl"a getir; 3386 çekirdekten yalnızca ~570'i hayatta kalır.</div>
+    </div>
+  </div>
+</div>
 
 <script src="data.js"></script>
 <script src="nuclides-data.js"></script>

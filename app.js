@@ -893,6 +893,8 @@ function applyLang(newLang) {
   langBtn.textContent = lang === "tr" ? "EN" : "TR";
   document.querySelectorAll("[data-i18n]").forEach((n) => (n.textContent = T(n.dataset.i18n)));
   document.querySelectorAll("[data-i18n-ph]").forEach((n) => (n.placeholder = T(n.dataset.i18nPh)));
+  document.querySelectorAll(".lang-tr").forEach((n) => (n.hidden = lang !== "tr"));
+  document.querySelectorAll(".lang-en").forEach((n) => (n.hidden = lang !== "en"));
   buildLegend();
   applyTemperature(state.temp);
   applyYear(state.year == null ? 2020 : state.year);
@@ -949,6 +951,13 @@ document.addEventListener("click", (ev) => {
   document.body.classList.add("leaving");
   setTimeout(() => (location.href = a.href), 240);
 });
+
+/* ---------- bilgi modalı ---------- */
+const infoModal = document.getElementById("infoModal");
+document.getElementById("infoBtn").addEventListener("click", () => (infoModal.hidden = false));
+document.getElementById("infoClose").addEventListener("click", () => (infoModal.hidden = true));
+infoModal.addEventListener("click", (ev) => { if (ev.target === infoModal) infoModal.hidden = true; });
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") infoModal.hidden = true; });
 
 /* ---------- başlangıç ---------- */
 applyTemperature(293);
