@@ -48,8 +48,8 @@ const L = {
     quizProgress: "Soru {i}/10 · Skor {s}",
     isotopes: "🧭 İzotoplar",
     kicker: "⌂ Etkileşimli Bilim Levhaları",
-    fig1: "Levha I", fig2: "Levha II", fig3: "Levha III", fig4: "Levha IV", fig5: "Levha V", fig6: "Levha VI", fig7: "Levha VII",
-    tabPt: "Periyodik Tablo", tabNuc: "Nüklit Haritası", tabFx: "Fourier Makinesi", tabOrb: "Yörünge Kurucu", tabGalton: "Galton Tahtası", tabWave: "Dalga Laboratuvarı", tabHarm: "Harmonograf",
+    fig1: "Levha I", fig2: "Levha II", fig3: "Levha III", fig4: "Levha IV", fig5: "Levha V", fig6: "Levha VI", fig7: "Levha VII", fig8: "Levha VIII",
+    tabPt: "Periyodik Tablo", tabNuc: "Nüklit Haritası", tabFx: "Fourier Makinesi", tabOrb: "Yörünge Kurucu", tabGalton: "Galton Tahtası", tabWave: "Dalga Laboratuvarı", tabHarm: "Harmonograf", tabDevre: "Devre Kurucu",
     caption1: "Levha I — Elementler · N = 118",
   },
   en: {
@@ -78,8 +78,8 @@ const L = {
     quizProgress: "Question {i}/10 · Score {s}",
     isotopes: "🧭 Isotopes",
     kicker: "⌂ Interactive Science Plates",
-    fig1: "Plate I", fig2: "Plate II", fig3: "Plate III", fig4: "Plate IV", fig5: "Plate V", fig6: "Plate VI", fig7: "Plate VII",
-    tabPt: "Periodic Table", tabNuc: "Nuclide Map", tabFx: "Fourier Machine", tabOrb: "Orbit Builder", tabGalton: "Galton Board", tabWave: "Wave Lab", tabHarm: "Harmonograph",
+    fig1: "Plate I", fig2: "Plate II", fig3: "Plate III", fig4: "Plate IV", fig5: "Plate V", fig6: "Plate VI", fig7: "Plate VII", fig8: "Plate VIII",
+    tabPt: "Periodic Table", tabNuc: "Nuclide Map", tabFx: "Fourier Machine", tabOrb: "Orbit Builder", tabGalton: "Galton Board", tabWave: "Wave Lab", tabHarm: "Harmonograph", tabDevre: "Circuit Builder",
     caption1: "Plate I — Elements · N = 118",
   },
 };
