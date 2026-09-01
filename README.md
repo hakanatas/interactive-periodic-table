@@ -50,26 +50,12 @@ Periyodik tablonun kardeş sayfası: 3386 nüklitlik interaktif **Segrè diyagra
 - Veri: [IAEA Livechart API](https://nds.iaea.org/relnsd/vcharthtml/VChartHTML.html)
   (taban durumları, yarı ömürler, bozunma modları, keşif yılları).
 
-## Sayılar Tablosu (`sayilar-tablosu/`)
+## Sayılar Tablosu (Levha X)
 
-Periyodik tablonun matematikteki kardeşi: 1'den 400'e doğal sayıların interaktif tablosu —
-ortaokul (5–8. sınıf) matematiğine göre tasarlandı. Bağımsız bir mini uygulamadır
-(`sayilar-tablosu/index.html`), istenirse kendi reposuna taşınabilir.
-
-- **Kategori görünümü:** asal, tam kare, küp, üçgensel, Fibonacci ve mükemmel sayılar renklerle;
-  bir sayının üzerine gelince **katları ve çarpanları** tabloda yanar.
-- **Eratosthenes Kalburu:** kaydırıcıyla adım adım eleme — asallar canlı ortaya çıkar.
-- **Bölünebilme modu:** 2, 3, 4, 5, 6, 9, 10'dan seç; katlar boyanır, iki seçimde ortak katlar
-  (EKOK'un katları) ayrıca vurgulanır; kurallar altta yazar.
-- **Isı haritaları:** çarpan sayısı, çarpanlar toplamı, en büyük asal çarpan, Collatz adımı…
-- **Detay paneli:** asal çarpan merdiveni, tüm çarpanlar, bölünebilme kontrolleri (gerekçeli),
-  şekilli sayı çizimi (kare/üçgen nokta desenleri), Collatz yolculuğu grafiği, Roma rakamı,
-  ikilik gösterim, yazıyla okunuş ve seçilmiş ilginç bilgiler.
-- **Karşılaştırma:** iki sayıdan EBOB/EKOK — ortak asal çarpanların küçük/büyük üsleriyle,
-  "EBOB × EKOK = a × b" notuyla.
-- **Quiz:** 10 soruluk mini oyun — "tabloda bul" + seçmeli EBOB/EKOK/asal soruları.
-- **Aralık seçimi** (1–100 / 200 / 400), arama (sayı veya tür adı) ve **URL ile paylaşım**
-  (`#max=200&m=sieve&s=3` gibi). Tüm veriler sayfa açılışında hesaplanır; veri dosyası yoktur.
+Periyodik tablonun matematikteki kardeşi — 1'den 400'e doğal sayıların interaktif tablosu,
+ortaokul matematiğine göre tasarlandı — artık kendi reposunda yaşıyor:
+[hakanatas/sayilar-tablosu](https://github.com/hakanatas/sayilar-tablosu) ·
+[canlı sayfa](https://hakanatas.github.io/sayilar-tablosu/).
 
 ## Dosyalar
 
