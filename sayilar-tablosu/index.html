@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İnteraktif Sayılar Tablosu</title>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="1'den 400'e sayıların canlı, etkileşimli tablosu — Eratosthenes Kalburu, bölünebilme kuralları, çarpan ısı haritaları, asal çarpan merdiveni, EBOB/EKOK karşılaştırma ve quiz. Ortaokul matematiği için.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%277%27%20fill%3D%27%23f2efe6%27%2F%3E%3Crect%20x%3D%275%27%20y%3D%275%27%20width%3D%2722%27%20height%3D%2722%27%20rx%3D%273%27%20fill%3D%27none%27%20stroke%3D%27%2322334f%27%20stroke-width%3D%272.2%27%2F%3E%3Ctext%20x%3D%2716%27%20y%3D%2722%27%20font-family%3D%27serif%27%20font-size%3D%2716%27%20font-weight%3D%27bold%27%20text-anchor%3D%27middle%27%20fill%3D%27%23b5432c%27%3E7%3C%2Ftext%3E%3C%2Fsvg%3E">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <a class="kicker page-link" href="https://hakanatas.github.io/bilim-levhalari/">⌂ Etkileşimli Bilim Levhaları</a>
+    <h1>İnteraktif <span>Sayılar Tablosu</span>
+      <button class="info-btn" id="infoBtn" title="Bu levha nedir?">i</button></h1>
+  </div>
+  <nav class="plate-nav">
+    <a class="plate-tab page-link" href="../index.html">
+      <span class="fig">Levha I</span>
+      <span class="lbl">Periyodik Tablo</span>
+    </a>
+    <a class="plate-tab page-link" href="../nuclides.html">
+      <span class="fig">Levha II</span>
+      <span class="lbl">Nüklit Haritası</span>
+    </a>
+    <a class="plate-tab active" href="#">
+      <span class="fig">Levha X</span>
+      <span class="lbl">Sayılar Tablosu</span>
+    </a>
+  </nav>
+  <div class="controls">
+    <input id="search" type="text" placeholder="Ara: sayı veya tür (asal, kare…)" autocomplete="off">
+    <div class="modes" id="modes">
+      <button data-mode="cat" class="active">Kategori</button>
+      <button data-mode="sieve">Kalbur</button>
+      <button data-mode="div">Bölünebilme</button>
+    </div>
+    <select id="heatSelect">
+      <option value="">Isı haritası…</option>
+      <option value="dcount">Çarpan sayısı</option>
+      <option value="dsum">Çarpanlar toplamı</option>
+      <option value="lpf">En büyük asal çarpan</option>
+      <option value="omega">Asal çarpan sayısı</option>
+      <option value="collatz">Collatz adım sayısı</option>
+      <option value="digitsum">Basamak toplamı</option>
+    </select>
+    <select id="rangeSelect" title="Tablo aralığı">
+      <option value="100">1 – 100</option>
+      <option value="200">1 – 200</option>
+      <option value="400">1 – 400</option>
+    </select>
+    <button id="compareBtn" class="tool-btn">⚖ Karşılaştır</button>
+    <button id="quizBtn" class="tool-btn">🎯 Quiz</button>
+  </div>
+</header>
+
+<div class="board-wrap">
+  <!-- mod kontrol şeridi: içerik seçili moda göre değişir -->
+  <div class="mode-strip">
+    <div class="strip-row" id="legendRow">
+      <div class="legend" id="legend"></div>
+      <div class="hover-hint">☞ Bir sayının üzerine gel: <span class="hint-mult">katları</span> ve
+        <span class="hint-div">çarpanları</span> tabloda yanar.</div>
+    </div>
+
+    <div class="strip-row" id="sieveRow" hidden>
+      <div class="sieve-controls">
+        <span class="strip-label">Eratosthenes Kalburu</span>
+        <input id="sieveSlider" type="range" min="0" max="4" step="1" value="0">
+        <span id="sieveReadout" class="sieve-readout"></span>
+      </div>
+      <div class="sieve-counts" id="sieveCounts"></div>
+    </div>
+
+    <div class="strip-row" id="divRow" hidden>
+      <div class="div-controls">
+        <span class="strip-label">Katlarını göster:</span>
+        <div class="div-chips" id="divChips"></div>
+      </div>
+      <div class="div-rules" id="divRules"></div>
+    </div>
+
+    <div class="strip-row" id="heatRow" hidden>
+      <span class="strip-label" id="heatLabel"></span>
+      <div class="heat-bar"><div class="heat-gradient"></div>
+        <span class="heat-min" id="heatMin"></span>
+        <span class="heat-max" id="heatMax"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-plate">
+    <div id="grid" class="grid"></div>
+  </div>
+  <div class="plate-caption" id="plateCaption">Levha X — Doğal Sayılar · 1&#8202;–&#8202;100</div>
+</div>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<!-- detay paneli -->
+<div id="panelBackdrop" class="panel-backdrop" hidden></div>
+<aside id="panel" class="panel" hidden>
+  <button class="panel-close" id="panelClose">×</button>
+  <div class="panel-head">
+    <div class="panel-num" id="pNum"></div>
+    <div class="panel-title">
+      <h2 id="pWord"></h2>
+      <div class="cat-chips" id="pChips"></div>
+    </div>
+  </div>
+
+  <div class="fun-fact" id="pFact" hidden></div>
+
+  <h3 class="panel-sub">Asal çarpanlara ayırma</h3>
+  <div class="factor-box">
+    <table class="ladder" id="pLadder"></table>
+    <div class="factor-formula" id="pFormula"></div>
+  </div>
+
+  <h3 class="panel-sub">Çarpanları</h3>
+  <div class="divisor-chips" id="pDivisors"></div>
+  <dl class="props">
+    <div><dt>Çarpan sayısı</dt><dd id="pDCount"></dd></div>
+    <div><dt>Çarpanları toplamı</dt><dd id="pDSum"></dd></div>
+    <div class="wide"><dt>Kendisi hariç toplam</dt><dd id="pAliquot"></dd></div>
+  </dl>
+
+  <h3 class="panel-sub">Bölünebilme kuralları</h3>
+  <div class="div-table" id="pDivTable"></div>
+
+  <div id="pFigWrap" hidden>
+    <h3 class="panel-sub" id="pFigTitle">Şekilli sayı</h3>
+    <svg id="pFig" class="fig-svg"></svg>
+  </div>
+
+  <h3 class="panel-sub">Collatz yolculuğu <span class="sub-note">(3n+1 oyunu)</span></h3>
+  <div class="collatz-info" id="pCollatzInfo"></div>
+  <svg id="pCollatz" class="collatz-svg" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+
+  <h3 class="panel-sub">Farklı gösterimler</h3>
+  <dl class="props" id="pForms"></dl>
+
+  <div class="wiki-links">
+    <a id="pCompareAdd" class="page-link">⚖ Karşılaştırmaya ekle</a>
+    <a id="wikiTr" target="_blank" rel="noopener">Vikipedi (TR) ↗</a>
+  </div>
+</aside>
+
+<!-- karşılaştırma kartı: EBOB / EKOK -->
+<div id="compareCard" class="compare-card" hidden>
+  <button class="panel-close" id="compareClose">×</button>
+  <div class="compare-hint" id="compareHint"></div>
+  <div class="compare-body" id="compareBody"></div>
+</div>
+
+<!-- quiz kartı -->
+<div id="quizCard" class="quiz-card" hidden>
+  <button class="panel-close" id="quizClose">×</button>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-question" id="quizQuestion"></div>
+  <div class="quiz-answers" id="quizAnswers"></div>
+  <div class="quiz-feedback" id="quizFeedback"></div>
+</div>
+
+<!-- bilgi modalı -->
+<div class="modal-backdrop" id="infoModal" hidden>
+  <div class="modal">
+    <button class="modal-close" id="infoClose" aria-label="Kapat">×</button>
+    <div class="modal-body">
+      <div class="modal-kicker">Levha X · Rehber</div>
+      <h2>İnteraktif <span>Sayılar Tablosu</span></h2>
+      <p>Bu levha, 1'den 400'e kadar doğal sayıları gösteren canlı bir tablodur. Her sayı bir karodur
+        ve rengi, sayının "kişiliğini" anlatır: asal mı, tam kare mi, üçgensel mi? Ortaokul
+        matematiğinin çarpanlar-katlar, bölünebilme ve EBOB/EKOK konuları için tasarlanmıştır.</p>
+      <h3>Neler yapabilirsin</h3>
+      <ul>
+        <li><b>Kategori görünümü:</b> asallar, tam kareler, küpler, üçgensel ve Fibonacci sayıları
+          renklerle ayrılır. Bir sayının üzerine gelince <b>katları ve çarpanları</b> tabloda yanar.</li>
+        <li><b>Kalbur modu:</b> kaydırıcıyı sürükleyerek Eratosthenes Kalburu'nu adım adım çalıştır —
+          2'nin, 3'ün, 5'in katları elendikçe asal sayılar ortaya çıkar.</li>
+        <li><b>Bölünebilme modu:</b> 2, 3, 4, 5, 6, 9, 10'dan istediklerini seç; katları boyanır,
+          kurallar altta yazar. İki sayı seçersen ortak katlar ayrıca vurgulanır.</li>
+        <li><b>Isı haritaları:</b> çarpan sayısı, çarpanlar toplamı, Collatz adım sayısı gibi
+          özellikleri renk tonuyla gösterir.</li>
+        <li>Bir sayıya tıkla: <b>detay paneli</b> açılır — asal çarpan merdiveni, tüm çarpanları,
+          bölünebilme kontrolleri, şekilli sayı çizimi, Collatz yolculuğu, Roma rakamı ve ikilik gösterim.</li>
+        <li><b>Karşılaştır:</b> iki sayı seç; EBOB ve EKOK'ları ortak asal çarpanlarıyla hesaplanır.</li>
+        <li><b>Quiz:</b> 10 soruluk mini oyun — "tabloda bul" ve seçmeli sorular.</li>
+      </ul>
+      <h3>Matematiksel arka plan</h3>
+      <p>Her doğal sayı, asal sayıların çarpımı olarak <i>tek bir şekilde</i> yazılabilir — buna
+        Aritmetiğin Temel Teoremi denir. Asal çarpanlar sayıların "atomlarıdır": tıpkı elementlerin
+        maddeyi oluşturması gibi, asallar da bütün sayıları oluşturur. Bu yüzden bu levha,
+        periyodik tablonun kardeşidir.</p>
+      <div class="modal-tip">💡 İpucu: Kalbur modunda kaydırıcıyı sona getir — 400'e kadarki asalları
+        bulmak için sadece 19'a kadar elemek yetiyor, çünkü 20 × 20 = 400.</div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
